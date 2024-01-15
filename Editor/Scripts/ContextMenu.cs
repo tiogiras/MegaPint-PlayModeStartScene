@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using com.tiogiras.megapint_playmodestartscene.Editor.Scripts;
 using UnityEditor;
 
 namespace Editor.Scripts
