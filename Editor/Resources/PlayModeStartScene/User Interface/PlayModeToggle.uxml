@@ -1,4 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
     <Style src="project://database/Packages/com.tiogiras.megapint/Editor/Resources/User%20Interface/MegaPint.uss?fileID=7433441132597879392&amp;guid=2f2b50e0e132e3a4989e6dbb646711fa&amp;type=3#MegaPint" />
-    <ui:GroupBox style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: initial; -unity-font: resource(&apos;RobotoMono-VariableFont_wght&apos;);" />
+    <ui:GroupBox style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-direction: row; align-items: center; justify-content: flex-start; align-self: auto;">
+        <ui:Button text="ON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BTN_On" class="megapint-button-nomargin" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+        <ui:Button text="OFF" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BTN_Off" class="megapint-button-nomargin" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" />
+        <ui:Label tabindex="-1" text="SceneName dsad asd a sdas dasdasdas das dasd as" parse-escape-sequences="true" display-tooltip-when-elided="true" tooltip="ScenePath" name="SceneName" style="margin-top: 5px; margin-bottom: 5px; margin-right: 70px; margin-left: 10px; opacity: 1; -unity-font-style: bold; flex-grow: 1; text-overflow: ellipsis; overflow: hidden; visibility: visible; white-space: nowrap; -unity-font-definition: initial; -unity-font: resource(&apos;RobotoMono-VariableFont_wght&apos;); -unity-text-align: middle-left;" />
+    </ui:GroupBox>
 </ui:UXML>
