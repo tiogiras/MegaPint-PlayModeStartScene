@@ -9,5 +9,5 @@
     "sprite editor window"
   ],
   "category": "2D",
-  "description": "MegaPint package for an entering playmode in a specified scene"
+  "description": "Package for the MegaPint package collection that allows you to set a starting scene for entering playmode."
 }
