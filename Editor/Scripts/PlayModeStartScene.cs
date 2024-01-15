@@ -18,19 +18,23 @@ public static class PlayModeStartScene
         {
             if (evt != PlayModeStateChange.EnteredPlayMode)
                 return;
-            
+
             if (PlayModeStartSceneData.ToggleState)
                 Debug.Log("Entered selected StartScene via MegaPint-PlayMode Start Scene");
         };
     }
 
+    #region Private Methods
+
     private static void SetStartScene()
     {
         if (PlayModeStartSceneData.ToggleState)
             EditorSceneManager.playModeStartScene = PlayModeStartSceneData.GetStartScene();
-        
+
         MegaPintSettings.onLoaded -= SetStartScene;
     }
+
+    #endregion
 }
 
 }

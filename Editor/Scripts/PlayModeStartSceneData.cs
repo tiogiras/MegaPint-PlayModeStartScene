@@ -17,12 +17,12 @@ public class PlayModeStartSceneData
 
     private const string SettingsName = "MegaPint.PlayModeStartScene";
 
+    public static Action <bool> onToggleChanged;
+    public static Action onStartSceneChanged;
+
     private static readonly SettingsValue <string> s_startSceneGuid = new() {key = "startSceneGUID", defaultValue = ""};
     private static readonly SettingsValue <bool> s_toggleState = new() {key = "toggleState", defaultValue = false};
 
-    public static Action<bool> onToggleChanged;
-    public static Action onStartSceneChanged;
-    
     public static string StartSceneGuid
     {
         get => _Settings.GetValue(s_startSceneGuid.key, s_startSceneGuid.defaultValue);
@@ -45,10 +45,14 @@ public class PlayModeStartSceneData
 
     private static MegaPintSettingsBase _Settings => MegaPintSettings.instance.GetSetting(SettingsName);
 
+    #region Public Methods
+
     public static SceneAsset GetStartScene()
     {
         return AssetDatabase.LoadAssetAtPath <SceneAsset>(AssetDatabase.GUIDToAssetPath(StartSceneGuid));
     }
+
+    #endregion
 }
 
 }

@@ -10,14 +10,15 @@ namespace Editor.Scripts
 
 public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 {
+    private static readonly Color s_playModeStartSceneOnColor = new(.8196078431372549f, 0f, .4470588235294118f);
+    private static readonly Color s_playModeStartSceneOffColor = new(.34f, .34f, .34f);
+
     /// <summary> Loaded uxml references </summary>
     private VisualTreeAsset _baseWindow;
 
-    private static readonly Color s_playModeStartSceneOnColor = new(.8196078431372549f, 0f, .4470588235294118f);
-    private static readonly Color s_playModeStartSceneOffColor = new(.34f, .34f, .34f);
-    
-    private Button _btnOn;
     private Button _btnOff;
+
+    private Button _btnOn;
     private Label _sceneName;
 
     #region Public Methods
@@ -54,9 +55,9 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
         _sceneName = content.Q <Label>("SceneName");
 
         UpdateSceneName();
-        
+
         VisualButtonUpdate(PlayModeStartSceneData.ToggleState);
-        
+
         RegisterCallbacks();
 
         root.Add(content);
@@ -82,9 +83,22 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
     {
         _btnOn.clickable = null;
         _btnOff.clickable = null;
-        
+
         PlayModeStartSceneData.onToggleChanged -= VisualButtonUpdate;
         PlayModeStartSceneData.onStartSceneChanged -= UpdateSceneName;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void Toggle(bool on)
+    {
+        VisualButtonUpdate(on);
+
+        PlayModeStartSceneData.ToggleState = on;
+
+        EditorSceneManager.playModeStartScene = on ? PlayModeStartSceneData.GetStartScene() : null;
     }
 
     private void UpdateSceneName()
@@ -97,15 +111,6 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
     {
         _btnOn.style.backgroundColor = on ? s_playModeStartSceneOnColor : s_playModeStartSceneOffColor;
         _btnOff.style.backgroundColor = on ? s_playModeStartSceneOffColor : s_playModeStartSceneOnColor;
-    }
-    
-    private void Toggle(bool on)
-    {
-        VisualButtonUpdate(on);
-        
-        PlayModeStartSceneData.ToggleState = on;
-
-        EditorSceneManager.playModeStartScene = on ? PlayModeStartSceneData.GetStartScene() : null;
     }
 
     #endregion
