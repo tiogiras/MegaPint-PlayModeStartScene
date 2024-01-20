@@ -1,13 +1,9 @@
 {
   "name": "com.tiogiras.megapint-playmodestartscene",
   "displayName": "megapint-playmodestartscene",
+  "author": "Tiogiras",
   "version": "1.0.0",
   "unity": "2022.3",
-  "keywords": [
-    "2d",
-    "sprite",
-    "sprite editor window"
-  ],
-  "category": "2D",
+  "category": "Tools",
   "description": "Package for the MegaPint package collection that allows you to set a starting scene for entering playmode."
 }
