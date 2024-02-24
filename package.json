@@ -2,8 +2,11 @@
   "name": "com.tiogiras.megapint-playmodestartscene",
   "displayName": "Megapint - PlayMode-StartScene",
   "author": "Tiogiras",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2022.3",
   "category": "Tools",
-  "description": "Package for the MegaPint package collection that allows you to set a starting scene for entering playmode."
+  "description": "This package allows you to set a starting scene for entering playmode.",
+  "repository": {
+    "url": "https://github.com/tiogiras/megapint-playmodestartscene.git"
+  }
 }
