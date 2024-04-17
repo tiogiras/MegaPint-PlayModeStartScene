@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.tiogiras.megapint/Editor/Resources/MegaPint/User%20Interface/MegaPint.uss?fileID=7433441132597879392&amp;guid=54dba4b7e58379b46a03a9a47e130e51&amp;type=3#MegaPint" />
+    <ui:VisualElement style="flex-direction: row; align-items: center; overflow: hidden;">
+        <Editor.Scripts.GUI.Factories.Interactive.Button name="BTN_On" text="ON" class="mp_interaction_dontChangeColorAfterInteract" style="height: 20px;" />
+        <Editor.Scripts.GUI.Factories.Interactive.Button name="BTN_Off" text="OFF" class="mp_interaction_dontChangeColorAfterInteract" style="height: 20px;" />
+        <Editor.Scripts.GUI.Factories.TextSecondary tabindex="-1" text="SceneName dsa das dasd asdasdasdasdasdasd " name="SceneName" style="margin-top: 5px; margin-right: 80px; margin-bottom: 5px; margin-left: 10px; text-overflow: ellipsis; flex-grow: 1; overflow: hidden;" />
+    </ui:VisualElement>
+</ui:UXML>

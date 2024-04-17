@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using Editor.Scripts.GUI;
 using Editor.Scripts.Windows;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -10,8 +11,8 @@ namespace Editor.Scripts
 
 public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 {
-    private static readonly Color s_playModeStartSceneOnColor = new(.8196078431372549f, 0f, .4470588235294118f);
-    private static readonly Color s_playModeStartSceneOffColor = new(.34f, .34f, .34f);
+    private static readonly Color s_playModeStartSceneOnColor = RootElement.Colors.Primary;
+    private static readonly Color s_playModeStartSceneOffColor = RootElement.Colors.Button;
 
     /// <summary> Loaded uxml references </summary>
     private VisualTreeAsset _baseWindow;
@@ -27,9 +28,6 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
     {
         titleContent.text = "PlayMode Toggle";
 
-        minSize = new Vector2(200, 30);
-        maxSize = new Vector2(200, 30);
-
         return this;
     }
 
@@ -39,7 +37,7 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 
     protected override string BasePath()
     {
-        return "PlayModeStartScene/User Interface/PlayModeToggle";
+        return "PlayModeStartScene/User Interface/PlayMode Toggle";
     }
 
     protected override void CreateGUI()
