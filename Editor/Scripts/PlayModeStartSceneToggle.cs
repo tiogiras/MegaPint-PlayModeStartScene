@@ -1,19 +1,16 @@
 ﻿#if UNITY_EDITOR
-using Editor.Scripts.GUI;
 using Editor.Scripts.Windows;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
+using GUIUtility = Editor.Scripts.GUI.GUIUtility;
 
 namespace Editor.Scripts
 {
 
 public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 {
-    private static readonly Color s_playModeStartSceneOnColor = RootElement.Colors.Primary;
-    private static readonly Color s_playModeStartSceneOffColor = RootElement.Colors.Button;
-
     /// <summary> Loaded uxml references </summary>
     private VisualTreeAsset _baseWindow;
 
@@ -47,6 +44,8 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
         VisualElement root = rootVisualElement;
 
         VisualElement content = _baseWindow.Instantiate();
+        content.style.flexGrow = 1f;
+        content.style.flexShrink = 1f;
 
         _btnOn = content.Q <Button>("BTN_On");
         _btnOff = content.Q <Button>("BTN_Off");
@@ -101,14 +100,21 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 
     private void UpdateSceneName()
     {
-        _sceneName.text = PlayModeStartSceneData.GetStartScene().name;
+        SceneAsset startScene = PlayModeStartSceneData.GetStartScene();
+
+        if (startScene == null)
+        {
+            _sceneName.text = "None";
+            return;
+        }
+        
+        _sceneName.text = startScene.name;
         _sceneName.tooltip = AssetDatabase.GUIDToAssetPath(PlayModeStartSceneData.StartSceneGuid);
     }
 
     private void VisualButtonUpdate(bool on)
     {
-        _btnOn.style.backgroundColor = on ? s_playModeStartSceneOnColor : s_playModeStartSceneOffColor;
-        _btnOff.style.backgroundColor = on ? s_playModeStartSceneOffColor : s_playModeStartSceneOnColor;
+        GUIUtility.ToggleActiveButtonInGroup(on ? 0 : 1, _btnOn, _btnOff);
     }
 
     #endregion

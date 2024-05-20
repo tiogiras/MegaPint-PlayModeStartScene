@@ -13,9 +13,6 @@ internal static partial class DisplayContent
 {
     private static int s_playModeStartSceneObjectPicker;
 
-    private static readonly Color s_playModeStartSceneOnColor = RootElement.Colors.Primary;
-    private static readonly Color s_playModeStartSceneOffColor = RootElement.Colors.Button;
-
     #region Private Methods
 
     // Called by reflection
@@ -115,8 +112,7 @@ internal static partial class DisplayContent
 
     private static void PlayModeStartSceneUpdateToggle(VisualElement btnOn, VisualElement btnOff, bool on)
     {
-        btnOn.style.backgroundColor = on ? s_playModeStartSceneOnColor : s_playModeStartSceneOffColor;
-        btnOff.style.backgroundColor = on ? s_playModeStartSceneOffColor : s_playModeStartSceneOnColor;
+        GUIUtility.ToggleActiveButtonInGroup(on ? 0 : 1, btnOn, btnOff);
     }
 
     #endregion
