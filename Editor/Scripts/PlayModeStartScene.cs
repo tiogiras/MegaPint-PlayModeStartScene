@@ -1,12 +1,13 @@
 ﻿#if UNITY_EDITOR
-using Editor.Scripts.Settings;
+using MegaPint.Editor.Scripts.Settings;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Editor.Scripts
+namespace MegaPint.Editor.Scripts
 {
 
+/// <summary> Handles main logic of the PlayModeStartScene package </summary>
 [InitializeOnLoad]
 public static class PlayModeStartScene
 {
@@ -19,17 +20,18 @@ public static class PlayModeStartScene
             if (evt != PlayModeStateChange.EnteredPlayMode)
                 return;
 
-            if (PlayModeStartSceneData.ToggleState)
+            if (SaveValues.PlayModeStartScene.ToggleState)
                 Debug.Log("Entered selected StartScene via MegaPint-PlayMode Start Scene");
         };
     }
 
     #region Private Methods
 
+    /// <summary> Set the startScene of the editor </summary>
     private static void SetStartScene()
     {
-        if (PlayModeStartSceneData.ToggleState)
-            EditorSceneManager.playModeStartScene = PlayModeStartSceneData.GetStartScene();
+        if (SaveValues.PlayModeStartScene.ToggleState)
+            EditorSceneManager.playModeStartScene = SaveValues.PlayModeStartScene.GetStartScene();
 
         MegaPintSettings.onLoaded -= SetStartScene;
     }

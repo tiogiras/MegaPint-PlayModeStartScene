@@ -1,15 +1,16 @@
 ﻿#if UNITY_EDITOR
-using Editor.Scripts.Windows;
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
-using GUIUtility = Editor.Scripts.GUI.GUIUtility;
+using GUIUtility = MegaPint.Editor.Scripts.GUI.Utility.GUIUtility;
 
-namespace Editor.Scripts
+namespace MegaPint.Editor.Scripts.Windows
 {
 
-public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
+/// <summary> Editor window to toggle on/off the playModeStartScene behaviour </summary>
+public class PlayModeStartSceneToggle : EditorWindowBase
 {
     /// <summary> Loaded uxml references </summary>
     private VisualTreeAsset _baseWindow;
@@ -21,7 +22,7 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 
     #region Public Methods
 
-    public override MegaPintEditorWindowBase ShowWindow()
+    public override EditorWindowBase ShowWindow()
     {
         titleContent.text = "PlayMode Toggle";
 
@@ -34,7 +35,7 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 
     protected override string BasePath()
     {
-        return "PlayModeStartScene/User Interface/PlayMode Toggle";
+        return Path.Combine(Constants.PlayModeStartScene.Resources.UserInterface.WindowsPath, "PlayMode Toggle");
     }
 
     protected override void CreateGUI()
@@ -53,7 +54,7 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
 
         UpdateSceneName();
 
-        VisualButtonUpdate(PlayModeStartSceneData.ToggleState);
+        VisualButtonUpdate(SaveValues.PlayModeStartScene.ToggleState);
 
         RegisterCallbacks();
 
@@ -72,8 +73,8 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
         _btnOn.clickable = new Clickable(() => {Toggle(true);});
         _btnOff.clickable = new Clickable(() => {Toggle(false);});
 
-        PlayModeStartSceneData.onToggleChanged += VisualButtonUpdate;
-        PlayModeStartSceneData.onStartSceneChanged += UpdateSceneName;
+        SaveValues.PlayModeStartScene.onToggleChanged += VisualButtonUpdate;
+        SaveValues.PlayModeStartScene.onStartSceneChanged += UpdateSceneName;
     }
 
     protected override void UnRegisterCallbacks()
@@ -81,37 +82,43 @@ public class PlayModeStartSceneToggle : MegaPintEditorWindowBase
         _btnOn.clickable = null;
         _btnOff.clickable = null;
 
-        PlayModeStartSceneData.onToggleChanged -= VisualButtonUpdate;
-        PlayModeStartSceneData.onStartSceneChanged -= UpdateSceneName;
+        SaveValues.PlayModeStartScene.onToggleChanged -= VisualButtonUpdate;
+        SaveValues.PlayModeStartScene.onStartSceneChanged -= UpdateSceneName;
     }
 
     #endregion
 
     #region Private Methods
 
+    /// <summary> Toggle the behaviour </summary>
+    /// <param name="on"> Targeted status </param>
     private void Toggle(bool on)
     {
         VisualButtonUpdate(on);
 
-        PlayModeStartSceneData.ToggleState = on;
+        SaveValues.PlayModeStartScene.ToggleState = on;
 
-        EditorSceneManager.playModeStartScene = on ? PlayModeStartSceneData.GetStartScene() : null;
+        EditorSceneManager.playModeStartScene = on ? SaveValues.PlayModeStartScene.GetStartScene() : null;
     }
 
+    /// <summary> Update the target scene name </summary>
     private void UpdateSceneName()
     {
-        SceneAsset startScene = PlayModeStartSceneData.GetStartScene();
+        SceneAsset startScene = SaveValues.PlayModeStartScene.GetStartScene();
 
         if (startScene == null)
         {
             _sceneName.text = "None";
+
             return;
         }
-        
+
         _sceneName.text = startScene.name;
-        _sceneName.tooltip = AssetDatabase.GUIDToAssetPath(PlayModeStartSceneData.StartSceneGuid);
+        _sceneName.tooltip = AssetDatabase.GUIDToAssetPath(SaveValues.PlayModeStartScene.StartSceneGuid);
     }
 
+    /// <summary> Update the visuals of the buttons </summary>
+    /// <param name="on"> State of the behaviour </param>
     private void VisualButtonUpdate(bool on)
     {
         GUIUtility.ToggleActiveButtonInGroup(on ? 0 : 1, _btnOn, _btnOff);

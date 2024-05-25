@@ -1,78 +1,24 @@
 ﻿#if UNITY_EDITOR
-using Editor.Scripts.GUI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
-using GUIUtility = Editor.Scripts.GUI.GUIUtility;
+using GUIUtility = MegaPint.Editor.Scripts.GUI.Utility.GUIUtility;
 
-namespace Editor.Scripts
+namespace MegaPint.Editor.Scripts
 {
 
+/// <summary> Partial class used to display the right pane in the BaseWindow </summary>
 internal static partial class DisplayContent
 {
     private static int s_playModeStartSceneObjectPicker;
 
     #region Private Methods
 
-    // Called by reflection
-    // ReSharper disable once UnusedMember.Local
-    private static void PlayModeStartScene(DisplayContentReferences refs)
-    {
-        InitializeDisplayContent(
-            refs,
-            new TabSettings
-            {
-                info = true,
-                settings = true
-            },
-            new TabActions
-            {
-                info = root =>
-                {
-                    GUIUtility.ActivateLinks(root, 
-                                             evt =>
-                                             {
-                                                 switch (evt.linkID)
-                                                 {
-                                                     case "playModeToggle":
-                                                         EditorApplication.ExecuteMenuItem(
-                                                             "MegaPint/Packages/PlayMode Toggle");
-                                                         break;
-                                                 }
-                                             });
-                },
-                settings = root =>
-                {
-                    PlayModeStartSceneVisualUpdate(root);
-                    
-                    root.Q <Button>("BTN_Change").clickable = new Clickable(
-                        () =>
-                        {
-                            s_playModeStartSceneObjectPicker = UnityEngine.GUIUtility.GetControlID(FocusType.Passive) + 100;
-
-                            EditorGUIUtility.ShowObjectPicker <SceneAsset>(null, false, "", s_playModeStartSceneObjectPicker);
-
-                            onRightPaneGUI += PlayModeSceneChange;
-                        });
-                    
-                    var btnOn = root.Q <Button>("BTN_On");
-                    var btnOff = root.Q <Button>("BTN_Off");
-                    
-                    PlayModeStartSceneUpdateToggle(btnOn, btnOff, PlayModeStartSceneData.ToggleState);
-                    
-                    btnOn.clickable = new Clickable(() => {PlayModeStartSceneToggle(btnOn, btnOff, true);});
-
-                    btnOff.clickable = new Clickable(() => {PlayModeStartSceneToggle(btnOn, btnOff, false);});
-
-                    PlayModeStartSceneData.onToggleChanged += on => {PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);};
-                }
-            });
-    }
-    
     private static void PlayModeSceneChange(VisualElement root)
     {
-        if (Event.current.commandName != "ObjectSelectorClosed" || EditorGUIUtility.GetObjectPickerControlID() != s_playModeStartSceneObjectPicker)
+        if (Event.current.commandName != "ObjectSelectorClosed" ||
+            EditorGUIUtility.GetObjectPickerControlID() != s_playModeStartSceneObjectPicker)
             return;
 
         Object scene = EditorGUIUtility.GetObjectPickerObject();
@@ -82,37 +28,98 @@ internal static partial class DisplayContent
 
         var path = AssetDatabase.GetAssetPath(scene);
 
-        PlayModeStartSceneData.StartSceneGuid = AssetDatabase.GUIDFromAssetPath(path).ToString();
+        SaveValues.PlayModeStartScene.StartSceneGuid = AssetDatabase.GUIDFromAssetPath(path).ToString();
 
         PlayModeStartSceneVisualUpdate(root);
 
-        if (PlayModeStartSceneData.ToggleState)
-            EditorSceneManager.playModeStartScene = PlayModeStartSceneData.GetStartScene();
+        if (SaveValues.PlayModeStartScene.ToggleState)
+            EditorSceneManager.playModeStartScene = SaveValues.PlayModeStartScene.GetStartScene();
     }
-    
-    private static void PlayModeStartSceneVisualUpdate(VisualElement root)
+
+    // Called by reflection
+    // ReSharper disable once UnusedMember.Local
+    private static void PlayModeStartScene(DisplayContentReferences refs)
     {
-        SceneAsset startScene = PlayModeStartSceneData.GetStartScene();
+        InitializeDisplayContent(
+            refs,
+            new TabSettings {info = true, settings = true},
+            new TabActions
+            {
+                info = root =>
+                {
+                    GUIUtility.ActivateLinks(
+                        root,
+                        evt =>
+                        {
+                            switch (evt.linkID)
+                            {
+                                case "playModeToggle":
+                                    EditorApplication.ExecuteMenuItem(
+                                        "MegaPint/Packages/PlayMode Toggle");
 
-        var hasStartScene = startScene != null;
+                                    break;
+                            }
+                        });
+                },
+                settings = root =>
+                {
+                    PlayModeStartSceneVisualUpdate(root);
 
-        var sceneName = root.Q <Label>("SceneName");
-        sceneName.text = hasStartScene ? startScene.name : "None";
-        sceneName.tooltip = hasStartScene ? AssetDatabase.GUIDToAssetPath(PlayModeStartSceneData.StartSceneGuid) : "";
+                    root.Q <Button>("BTN_Change").clickable = new Clickable(
+                        () =>
+                        {
+                            s_playModeStartSceneObjectPicker =
+                                UnityEngine.GUIUtility.GetControlID(FocusType.Passive) + 100;
+
+                            EditorGUIUtility.ShowObjectPicker <SceneAsset>(
+                                null,
+                                false,
+                                "",
+                                s_playModeStartSceneObjectPicker);
+
+                            onRightPaneGUI += PlayModeSceneChange;
+                        });
+
+                    var btnOn = root.Q <Button>("BTN_On");
+                    var btnOff = root.Q <Button>("BTN_Off");
+
+                    PlayModeStartSceneUpdateToggle(btnOn, btnOff, SaveValues.PlayModeStartScene.ToggleState);
+
+                    btnOn.clickable = new Clickable(() => {PlayModeStartSceneToggle(btnOn, btnOff, true);});
+
+                    btnOff.clickable = new Clickable(() => {PlayModeStartSceneToggle(btnOn, btnOff, false);});
+
+                    SaveValues.PlayModeStartScene.onToggleChanged += on =>
+                    {
+                        PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
+                    };
+                }
+            });
     }
 
     private static void PlayModeStartSceneToggle(VisualElement btnOn, VisualElement btnOff, bool on)
     {
         PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
 
-        PlayModeStartSceneData.ToggleState = on;
+        SaveValues.PlayModeStartScene.ToggleState = on;
 
-        EditorSceneManager.playModeStartScene = on ? PlayModeStartSceneData.GetStartScene() : null;
+        EditorSceneManager.playModeStartScene = on ? SaveValues.PlayModeStartScene.GetStartScene() : null;
     }
 
     private static void PlayModeStartSceneUpdateToggle(VisualElement btnOn, VisualElement btnOff, bool on)
     {
         GUIUtility.ToggleActiveButtonInGroup(on ? 0 : 1, btnOn, btnOff);
+    }
+
+    private static void PlayModeStartSceneVisualUpdate(VisualElement root)
+    {
+        SceneAsset startScene = SaveValues.PlayModeStartScene.GetStartScene();
+
+        var hasStartScene = startScene != null;
+
+        var sceneName = root.Q <Label>("SceneName");
+        sceneName.text = hasStartScene ? startScene.name : "None";
+        sceneName.tooltip = hasStartScene ? AssetDatabase.GUIDToAssetPath(SaveValues.PlayModeStartScene.StartSceneGuid) : "";
     }
 
     #endregion
