@@ -8,18 +8,19 @@ internal static partial class Constants
 {
     public static class PlayModeStartScene
     {
-        private static readonly string s_basePath = Path.Combine("MegaPint", "PlayModeStartScene");
-
-        private static readonly string s_resourcesPath = Path.Combine(s_basePath, "Resources");
+        private static readonly string s_base = Path.Combine("MegaPint", "PlayModeStartScene");
+        private static readonly string s_resources = Path.Combine(s_base, "Resources");
+        private static readonly string s_userInterface = Path.Combine(s_resources, "User Interface");
         
-        public static class Resources
+        public static class UserInterface
         {
-            private static readonly string s_userInterfacePath = Path.Combine(s_resourcesPath, "User Interface");
-            
-            public static class UserInterface
-            {
-                public static readonly string WindowsPath = Path.Combine(s_userInterfacePath, "Windows");
-            }
+            private static readonly string s_windows = Path.Combine(s_userInterface, "Windows");
+            public static readonly string PlayModeToggle = Path.Combine(s_windows, "Play Mode Toggle");
+        }
+
+        public static class Links
+        {
+            public const string PlayModeToggle = "MegaPint/Packages/PlayMode Toggle";
         }
     }
 }
