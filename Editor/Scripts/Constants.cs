@@ -9,8 +9,7 @@ internal static partial class Constants
     public static class PlayModeStartScene
     {
         private static readonly string s_base = Path.Combine("MegaPint", "PlayModeStartScene");
-        private static readonly string s_resources = Path.Combine(s_base, "Resources");
-        private static readonly string s_userInterface = Path.Combine(s_resources, "User Interface");
+        private static readonly string s_userInterface = Path.Combine(s_base, "User Interface");
         
         public static class UserInterface
         {
