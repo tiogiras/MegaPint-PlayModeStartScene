@@ -15,6 +15,8 @@ internal static partial class DisplayContent
 
     #region Private Methods
 
+    /// <summary> Callback when toggle changed </summary>
+    /// <param name="root"> RootVisualElement </param>
     private static void PlayModeSceneChange(VisualElement root)
     {
         if (Event.current.commandName != "ObjectSelectorClosed" ||
@@ -55,7 +57,7 @@ internal static partial class DisplayContent
                             {
                                 case "playModeToggle":
                                     EditorApplication.ExecuteMenuItem(
-                                        "MegaPint/Packages/PlayMode Toggle");
+                                        Constants.PlayModeStartScene.Links.PlayModeToggle);
 
                                     break;
                             }
@@ -97,6 +99,10 @@ internal static partial class DisplayContent
             });
     }
 
+    /// <summary> Toggle StartSceneToggle </summary>
+    /// <param name="btnOn"> On button </param>
+    /// <param name="btnOff"> Off button </param>
+    /// <param name="on"> State of the toggle </param>
     private static void PlayModeStartSceneToggle(VisualElement btnOn, VisualElement btnOff, bool on)
     {
         PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
@@ -106,11 +112,17 @@ internal static partial class DisplayContent
         EditorSceneManager.playModeStartScene = on ? SaveValues.PlayModeStartScene.GetStartScene() : null;
     }
 
+    /// <summary> Update toggle </summary>
+    /// <param name="btnOn"> On button </param>
+    /// <param name="btnOff"> Off button </param>
+    /// <param name="on"> State of the toggle </param>
     private static void PlayModeStartSceneUpdateToggle(VisualElement btnOn, VisualElement btnOff, bool on)
     {
         GUIUtility.ToggleActiveButtonInGroup(on ? 0 : 1, btnOn, btnOff);
     }
 
+    /// <summary> Update visuals </summary>
+    /// <param name="root"> RootVisualElement </param>
     private static void PlayModeStartSceneVisualUpdate(VisualElement root)
     {
         SceneAsset startScene = SaveValues.PlayModeStartScene.GetStartScene();
@@ -119,7 +131,9 @@ internal static partial class DisplayContent
 
         var sceneName = root.Q <Label>("SceneName");
         sceneName.text = hasStartScene ? startScene.name : "None";
-        sceneName.tooltip = hasStartScene ? AssetDatabase.GUIDToAssetPath(SaveValues.PlayModeStartScene.StartSceneGuid) : "";
+
+        sceneName.tooltip =
+            hasStartScene ? AssetDatabase.GUIDToAssetPath(SaveValues.PlayModeStartScene.StartSceneGuid) : "";
     }
 
     #endregion

@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -35,7 +34,7 @@ public class PlayModeStartSceneToggle : EditorWindowBase
 
     protected override string BasePath()
     {
-        return Path.Combine(Constants.PlayModeStartScene.Resources.UserInterface.WindowsPath, "PlayMode Toggle");
+        return Constants.PlayModeStartScene.UserInterface.PlayModeToggle;
     }
 
     protected override void CreateGUI()
