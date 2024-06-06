@@ -8,21 +8,21 @@ internal static partial class Constants
 {
     public static class PlayModeStartScene
     {
-        private static readonly string s_base = Path.Combine("MegaPint", "PlayModeStartScene");
-        private static readonly string s_userInterface = Path.Combine(s_base, "User Interface");
-        
+        public static class Links
+        {
+            public static readonly string PlayModeToggle = Utility.CombineMenuItemPath(
+                ContextMenu.MenuItemPackages,
+                "PlayMode Toggle");
+        }
+
         public static class UserInterface
         {
             private static readonly string s_windows = Path.Combine(s_userInterface, "Windows");
             public static readonly string PlayModeToggle = Path.Combine(s_windows, "Play Mode Toggle");
         }
 
-        public static class Links
-        {
-            public static readonly string PlayModeToggle = Path.Combine(
-                ContextMenu.MenuItemPackages,
-                "PlayMode Toggle");
-        }
+        private static readonly string s_base = Path.Combine("MegaPint", "PlayModeStartScene");
+        private static readonly string s_userInterface = Path.Combine(s_base, "User Interface");
     }
 }
 
