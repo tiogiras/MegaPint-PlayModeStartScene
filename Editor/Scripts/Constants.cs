@@ -19,7 +19,9 @@ internal static partial class Constants
 
         public static class Links
         {
-            public const string PlayModeToggle = "MegaPint/Packages/PlayMode Toggle";
+            public static readonly string PlayModeToggle = Path.Combine(
+                ContextMenu.MenuItemPackages,
+                "PlayMode Toggle");
         }
     }
 }
