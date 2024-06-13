@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using MegaPint.Editor.Scripts.GUI.Utility;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -24,6 +25,14 @@ public class PlayModeStartSceneToggle : EditorWindowBase
     public override EditorWindowBase ShowWindow()
     {
         titleContent.text = "PlayMode Toggle";
+
+        minSize = new Vector2(200, 120);
+
+        if (!SaveValues.PlayModeStartScene.ApplyPSToggleWindow)
+            return this;
+
+        this.CenterOnMainWin(300, 120);
+        SaveValues.PlayModeStartScene.ApplyPSToggleWindow = false;
 
         return this;
     }
