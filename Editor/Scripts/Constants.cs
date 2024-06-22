@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if UNITY_EDITOR
+using System.IO;
 
 namespace MegaPint.Editor.Scripts
 {
@@ -27,3 +28,4 @@ internal static partial class Constants
 }
 
 }
+#endif
