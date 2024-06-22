@@ -2,7 +2,7 @@
   "name": "com.tiogiras.megapint-playmodestartscene",
   "displayName": "MegaPint - PlayMode Start Scene",
   "author": "Tiogiras",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "unity": "2022.3",
   "category": "Tools",
   "description": "Tired of switching scenes after editing a scene just to start the game from the MainMenu?\n\nThis package allows you to set a starting scene that will be opened whenever your enter the PlayMode.",
