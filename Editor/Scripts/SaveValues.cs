@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using MegaPint.Editor.Scripts.Settings;
 using UnityEditor;
 
@@ -44,7 +45,6 @@ internal static partial class SaveValues
             get => ValueProperty.Get("ApplyPS_ToggleWindow", ref s_applyPsToggleWindow, _Settings);
             set => ValueProperty.Set("ApplyPS_ToggleWindow", value, ref s_applyPsToggleWindow, _Settings);
         }
-        
 
         private static SettingsBase _Settings
         {
@@ -69,3 +69,4 @@ internal static partial class SaveValues
 }
 
 }
+#endif
