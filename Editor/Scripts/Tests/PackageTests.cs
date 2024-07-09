@@ -48,6 +48,10 @@ internal class PackageTests
             ref isValid,
             Constants.PlayModeStartScene.UserInterface.PlayModeToggle);
 
+        TestsUtility.ValidateResource <VisualTreeAsset>(
+            ref isValid,
+            Constants.PlayModeStartScene.UserInterface.ToolbarButton);
+
         Assert.IsTrue(isValid);
     }
 
