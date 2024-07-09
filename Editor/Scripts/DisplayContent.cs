@@ -92,6 +92,12 @@ internal static partial class DisplayContent
                     {
                         PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
                     };
+
+                    var displayToolbarToggle = root.Q <Toggle>("DisplayToolbarToggle");
+                    displayToolbarToggle.value = SaveValues.PlayModeStartScene.DisplayToolbarToggle;
+
+                    displayToolbarToggle.RegisterValueChangedCallback(
+                        evt => {SaveValues.PlayModeStartScene.DisplayToolbarToggle = evt.newValue;});
                 }
             });
     }
