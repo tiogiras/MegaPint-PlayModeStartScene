@@ -25,9 +25,6 @@ internal static partial class DisplayContent
 
         Object scene = EditorGUIUtility.GetObjectPickerObject();
 
-        if (scene == null)
-            return;
-
         var path = AssetDatabase.GetAssetPath(scene);
 
         SaveValues.PlayModeStartScene.StartSceneGuid = AssetDatabase.GUIDFromAssetPath(path).ToString();

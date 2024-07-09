@@ -13,6 +13,7 @@ internal static partial class SaveValues
     {
         public static Action <bool> onToggleChanged;
         public static Action onStartSceneChanged;
+        
         private static CacheValue <string> s_startSceneGuid = new() {defaultValue = ""};
         private static CacheValue <bool> s_toggleState = new() {defaultValue = false};
         private static CacheValue <bool> s_displayToolbarToggle = new() {defaultValue = true};

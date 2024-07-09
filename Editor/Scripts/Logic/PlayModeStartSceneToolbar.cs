@@ -1,10 +1,10 @@
 ﻿// TODO commenting
 
 #if UNITY_EDITOR
+using System.Text;
 using MegaPint.Editor.Scripts.GUI;
 using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace MegaPint.Editor.Scripts.Logic
@@ -42,7 +42,12 @@ internal static class PlayModeStartSceneToolbar
                     SaveValues.PlayModeStartScene.onToggleChanged += newValue =>
                     {
                          s_toolbarToggle.SetValueWithoutNotify(newValue);
+                         SetTooltip();
                     };
+
+                    SaveValues.PlayModeStartScene.onStartSceneChanged += SetTooltip;
+                    
+                    SetTooltip();
                 }
             });
     }
@@ -51,6 +56,16 @@ internal static class PlayModeStartSceneToolbar
 
     private static void OnToolbarCreation(VisualElement element)
     {
+    }
+
+    private static void SetTooltip()
+    {
+        var tooltip = new StringBuilder();
+
+        tooltip.AppendLine($"Status: {(SaveValues.PlayModeStartScene.ToggleState ? "active" : "inactive")}");
+        tooltip.Append($"StartScene: {SaveValues.PlayModeStartScene.GetStartScene()?.name ?? "None"}");
+
+        s_toolbarToggle.tooltip = tooltip.ToString();
     }
 
     private static void OnToolbarToggleChanged(bool newValue)
