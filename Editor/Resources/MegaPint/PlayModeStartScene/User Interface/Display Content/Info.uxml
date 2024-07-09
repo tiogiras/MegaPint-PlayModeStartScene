@@ -6,7 +6,7 @@
         <ui:VisualElement style="flex-grow: 1; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
             <MegaPint.Editor.Scripts.GUI.Factories.TextElements.TextSecondary tabindex="-1" text="Package Info" name="PackageInfo" style="white-space: normal; -unity-font-style: italic;" />
             <MegaPint.Editor.Scripts.GUI.Factories.Structure.Separator />
-            <MegaPint.Editor.Scripts.GUI.Factories.TextElements.Text tabindex="-1" text="You can set a scene in the settings tab. This scene will be automatically loaded instead of your opened scene whenever you enter the playmode.&#10;&#10;This overwrite will only be applied when the &lt;link=&quot;playModeToggle&quot;&gt;PlayMode Toggle&lt;/link&gt; is active or you have activated the package in the settings tab." class="mp_link" style="white-space: normal; margin-top: 20px;" />
+            <MegaPint.Editor.Scripts.GUI.Factories.TextElements.Text tabindex="-1" text="You can set a scene in the settings tab. This scene will be automatically loaded instead of your opened scene whenever you enter the playmode.&#10;&#10;You can activate the feature either with the toggle in the settings tab or the &lt;link=&quot;playModeToggle&quot;&gt;PlayMode Toggle&lt;/link&gt; window.&#10;&#10;Alternatively you can use the toggle in &lt;link=info_unityToolbar&gt;unity&apos;s toolbar&lt;/link&gt;. The toggle is named &quot;PlayMode StartScene&quot; or has the StartScene icon (depends on your settings)." class="mp_link" style="white-space: normal; margin-top: 20px;" />
         </ui:VisualElement>
     </MegaPint.Editor.Scripts.GUI.Factories.RootElement>
 </ui:UXML>

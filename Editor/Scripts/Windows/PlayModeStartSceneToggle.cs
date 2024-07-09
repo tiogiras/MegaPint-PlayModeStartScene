@@ -105,8 +105,6 @@ public class PlayModeStartSceneToggle : EditorWindowBase
         VisualButtonUpdate(on);
 
         SaveValues.PlayModeStartScene.ToggleState = on;
-
-        EditorSceneManager.playModeStartScene = on ? SaveValues.PlayModeStartScene.GetStartScene() : null;
     }
 
     /// <summary> Update the target scene name </summary>
