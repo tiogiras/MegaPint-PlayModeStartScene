@@ -1,6 +1,7 @@
 ﻿// TODO commenting
 
 #if UNITY_EDITOR
+using System;
 using MegaPint.Editor.Scripts.Settings;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -13,6 +14,8 @@ namespace MegaPint.Editor.Scripts.Logic
 [InitializeOnLoad]
 public static class PlayModeStartScene
 {
+    public static Action onEnteredPlaymodeWithStartScene;
+    public static Action onEnteredPlaymode;
     private static bool s_toggleState;
     private static SceneAsset s_startScene;
 
@@ -29,7 +32,12 @@ public static class PlayModeStartScene
                 return;
 
             if (SaveValues.PlayModeStartScene.ToggleState)
+            {
                 Debug.Log("Entered selected StartScene via MegaPint-PlayMode Start Scene");
+                onEnteredPlaymodeWithStartScene?.Invoke();
+            }
+            else
+                onEnteredPlaymode?.Invoke();
         };
     }
 
