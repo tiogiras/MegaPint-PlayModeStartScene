@@ -16,6 +16,7 @@ public static class PlayModeStartScene
 {
     public static Action onEnteredPlaymodeWithStartScene;
     public static Action onEnteredPlaymode;
+    public static Action onExitedPlaymode;
     private static bool s_toggleState;
     private static SceneAsset s_startScene;
 
@@ -29,7 +30,12 @@ public static class PlayModeStartScene
         EditorApplication.playModeStateChanged += evt =>
         {
             if (evt != PlayModeStateChange.EnteredPlayMode)
+            {
+                if (evt == PlayModeStateChange.EnteredEditMode)
+                    onExitedPlaymode?.Invoke();
+                
                 return;
+            }
 
             if (SaveValues.PlayModeStartScene.ToggleState)
             {
