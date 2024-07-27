@@ -33,7 +33,7 @@ internal static partial class DisplayContent
 
         if (SaveValues.PlayModeStartScene.ToggleState)
             EditorSceneManager.playModeStartScene = SaveValues.PlayModeStartScene.GetStartScene();
-        
+
         onRightPaneGUI -= PlayModeSceneChange;
     }
 
