@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using MegaPint.Editor.Scripts.GUI.Utility;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 using GUIUtility = MegaPint.Editor.Scripts.GUI.Utility.GUIUtility;
@@ -10,7 +9,7 @@ namespace MegaPint.Editor.Scripts.Windows
 {
 
 /// <summary> Editor window to toggle on/off the playModeStartScene behaviour </summary>
-public class PlayModeStartSceneToggle : EditorWindowBase
+internal class PlayModeStartSceneToggle : EditorWindowBase
 {
     /// <summary> Loaded uxml references </summary>
     private VisualTreeAsset _baseWindow;

@@ -1,6 +1,4 @@
-﻿// TODO commenting
-
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using System;
 using MegaPint.Editor.Scripts.Settings;
 using UnityEditor;
@@ -12,7 +10,7 @@ namespace MegaPint.Editor.Scripts.Logic
 
 /// <summary> Handles main logic of the PlayModeStartScene package </summary>
 [InitializeOnLoad]
-public static class PlayModeStartScene
+internal static class PlayModeStartScene
 {
     public static Action onEnteredPlaymodeWithStartScene;
     public static Action onEnteredPlaymode;
@@ -33,7 +31,7 @@ public static class PlayModeStartScene
             {
                 if (evt == PlayModeStateChange.EnteredEditMode)
                     onExitedPlaymode?.Invoke();
-                
+
                 return;
             }
 
@@ -49,12 +47,15 @@ public static class PlayModeStartScene
 
     #region Private Methods
 
+    /// <summary> Callback when startScene was changed </summary>
     private static void OnStartSceneChanged()
     {
         s_startScene = SaveValues.PlayModeStartScene.GetStartScene();
         SetStartScene();
     }
 
+    /// <summary> Callback when the toggle state was changed </summary>
+    /// <param name="newValue"> New value of the toggle </param>
     private static void OnToggleStateChanged(bool newValue)
     {
         s_toggleState = newValue;
@@ -67,6 +68,7 @@ public static class PlayModeStartScene
         EditorSceneManager.playModeStartScene = s_toggleState ? s_startScene : null;
     }
 
+    /// <summary> Set the start scene in unity </summary>
     private static void SetStartSceneInitially()
     {
         s_toggleState = SaveValues.PlayModeStartScene.ToggleState;
