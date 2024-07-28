@@ -20,7 +20,7 @@ internal static class PlayModeStartScene
 
     static PlayModeStartScene()
     {
-        MegaPintSettings.onLoaded += SetStartSceneInitially;
+        MegaPintMainSettings.onLoaded += SetStartSceneInitially;
 
         SaveValues.PlayModeStartScene.onToggleChanged += OnToggleStateChanged;
         SaveValues.PlayModeStartScene.onStartSceneChanged += OnStartSceneChanged;
@@ -76,7 +76,7 @@ internal static class PlayModeStartScene
 
         SetStartScene();
 
-        MegaPintSettings.onLoaded -= SetStartSceneInitially;
+        MegaPintMainSettings.onLoaded -= SetStartSceneInitially;
     }
 
     #endregion
