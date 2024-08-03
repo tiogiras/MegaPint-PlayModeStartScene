@@ -25,9 +25,6 @@ internal static partial class DisplayContent
 
         Object scene = EditorGUIUtility.GetObjectPickerObject();
 
-        if (scene == null)
-            return;
-
         var path = AssetDatabase.GetAssetPath(scene);
 
         SaveValues.PlayModeStartScene.StartSceneGuid = AssetDatabase.GUIDFromAssetPath(path).ToString();
@@ -36,6 +33,8 @@ internal static partial class DisplayContent
 
         if (SaveValues.PlayModeStartScene.ToggleState)
             EditorSceneManager.playModeStartScene = SaveValues.PlayModeStartScene.GetStartScene();
+
+        onRightPaneGUI -= PlayModeSceneChange;
     }
 
     // Called by reflection
@@ -95,6 +94,12 @@ internal static partial class DisplayContent
                     {
                         PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
                     };
+
+                    var displayToolbarToggle = root.Q <Toggle>("DisplayToolbarToggle");
+                    displayToolbarToggle.SetValueWithoutNotify(SaveValues.PlayModeStartScene.DisplayToolbarToggle);
+
+                    displayToolbarToggle.RegisterValueChangedCallback(
+                        evt => {SaveValues.PlayModeStartScene.DisplayToolbarToggle = evt.newValue;});
                 }
             });
     }

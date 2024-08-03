@@ -4,6 +4,9 @@
     <Style src="project://database/Packages/com.tiogiras.megapint/Editor/Resources/MegaPint/User%20Interface/MegaPintAttributes.uss?fileID=7433441132597879392&amp;guid=db4b42bc58d645b8ab6f8c0e914c2a0c&amp;type=3#MegaPintAttributes" />
     <MegaPint.Editor.Scripts.GUI.Factories.RootElement>
         <ui:VisualElement style="flex-grow: 1; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+            <ui:Toggle label="Display Toolbar Toggle" name="DisplayToolbarToggle" tooltip="Creates a toggle in the unity toolbar to quickly enable or disable the PlayMode StartScene feature." />
+            <MegaPint.Editor.Scripts.GUI.Factories.TextElements.TextSecondary tabindex="-1" text="Changes to this setting will be applied on the next domain reload." style="white-space: normal; -unity-font-style: italic; margin-bottom: 10px; margin-top: 5px;" />
+            <MegaPint.Editor.Scripts.GUI.Factories.Structure.Separator />
             <ui:GroupBox style="margin-top: 10px; margin-right: 10px; margin-bottom: 5px; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-direction: row; align-items: center;">
                 <ui:Button text="ON" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BTN_On" tooltip="Activate the start scene" style="height: 20px;" />
                 <ui:Button text="OFF" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BTN_Off" tooltip="Deactivate the start scene" style="height: 20px;" />

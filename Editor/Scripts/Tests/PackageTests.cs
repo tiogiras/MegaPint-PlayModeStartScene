@@ -4,7 +4,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using MegaPint.Editor.Scripts.PackageManager.Packages;
 using MegaPint.Editor.Scripts.Tests.Utility;
-using MegaPint.Editor.Scripts.Windows;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
@@ -47,6 +46,10 @@ internal class PackageTests
         TestsUtility.ValidateResource <VisualTreeAsset>(
             ref isValid,
             Constants.PlayModeStartScene.UserInterface.PlayModeToggle);
+
+        TestsUtility.ValidateResource <VisualTreeAsset>(
+            ref isValid,
+            Constants.PlayModeStartScene.UserInterface.ToolbarButton);
 
         Assert.IsTrue(isValid);
     }

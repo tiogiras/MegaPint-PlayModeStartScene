@@ -12,9 +12,12 @@ internal static partial class SaveValues
     public static class PlayModeStartScene
     {
         public static Action <bool> onToggleChanged;
+        public static Action <bool> onDisplayToolbarToggleChanged;
         public static Action onStartSceneChanged;
+
         private static CacheValue <string> s_startSceneGuid = new() {defaultValue = ""};
         private static CacheValue <bool> s_toggleState = new() {defaultValue = false};
+        private static CacheValue <bool> s_displayToolbarToggle = new() {defaultValue = true};
 
         private static CacheValue <bool> s_applyPsToggleWindow = new() {defaultValue = true};
 
@@ -46,12 +49,22 @@ internal static partial class SaveValues
             set => ValueProperty.Set("ApplyPS_ToggleWindow", value, ref s_applyPsToggleWindow, _Settings);
         }
 
+        public static bool DisplayToolbarToggle
+        {
+            get => ValueProperty.Get("DisplayToolbarToggle", ref s_displayToolbarToggle, _Settings);
+            set
+            {
+                ValueProperty.Set("DisplayToolbarToggle", value, ref s_displayToolbarToggle, _Settings);
+                onDisplayToolbarToggleChanged?.Invoke(value);
+            }
+        }
+
         private static SettingsBase _Settings
         {
             get
             {
-                if (MegaPintSettings.Exists())
-                    return s_settings ??= MegaPintSettings.instance.GetSetting("PlayModeStartScene");
+                if (MegaPintMainSettings.Exists())
+                    return s_settings ??= MegaPintMainSettings.instance.GetSetting("PlayModeStartScene");
 
                 return null;
             }
