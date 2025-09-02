@@ -11,18 +11,16 @@ This package is part of the **[MegaPint Collection](https://github.com/tiogiras/
 
 ## About this Package?
 
-Losing unsaved progress after a crash is frustrating - hitting Save every few seconds is just annoying. While Unity does autoamtically save your general project, it does not save the scene you are currently working on. The Autosave tool handles this for you, keeping your work safe automatically.
+Implementing a main menu often forces you to go through it every time you test your game. Switching between your target scene and the main menu repeatedly can **break your workflow**.
 
-To give you even more control, it includes a versioning mode, which saves backups with timestamps instead of overwriting the active scene. This allows you to roll back to earlier versions whenever needed.
-
-<img width="300" height="115" alt="image" src="https://github.com/user-attachments/assets/ac880b34-3203-4310-ab1d-3c40cfc1d0d2" />
+The **Autostart** tool (aka **Playmode Start Scene**) solves this problem by letting you **assign any scene as the default play mode start scene**. Hit play, and Unity automatically loads that scene - no matter which scene you are currently editing.
 
 ## Features
 
-✔️ **Automatic scene saving** to prevent data loss    
-✔️ **Versioning mode stores backups** with timestamps    
-✔️ **Toggle feature on/off directly from Unity’s toolbar** for flexible workflows      
-✔️ **Minimal setup** - works seamlessly in your existing workflow    
+✔️ **Set any scene as the default play mode start scene**    
+✔️ **Automatically loads your chosen scene** when hitting play    
+✔️ **Toggle feature on/off directly from Unity’s toolbar** for flexible workflows    
+✔️ Minimizes friction and lets you **focus on building your game**, not fighting the editor    
 
 ---
 
