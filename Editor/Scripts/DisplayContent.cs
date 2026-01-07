@@ -94,6 +94,8 @@ internal static partial class DisplayContent
                     {
                         PlayModeStartSceneUpdateToggle(btnOn, btnOff, on);
                     };
+
+                    SaveValues.PlayModeStartScene.onStartSceneChanged += () => {PlayModeStartSceneVisualUpdate(root);};
                 }
             });
     }

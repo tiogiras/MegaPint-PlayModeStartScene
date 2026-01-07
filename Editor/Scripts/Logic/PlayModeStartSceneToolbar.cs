@@ -1,9 +1,12 @@
 ﻿#if UNITY_EDITOR
+using System;
 using MegaPint.Editor.Scripts.GUI.Utility;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.Toolbars;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace MegaPint.Editor.Scripts.Logic
 {
@@ -12,10 +15,11 @@ namespace MegaPint.Editor.Scripts.Logic
 [InitializeOnLoad]
 internal static class PlayModeStartSceneToolbar
 {
-
     private const string _TogglePath = "MegaPint/PlayMode StartScene";
     private static ToolbarToggle s_toolbarToggle;
 
+    private static int s_playModeStartSceneObjectPicker;
+    
     static PlayModeStartSceneToolbar()
     {
         if (!SaveValues.PlayModeStartScene.ToolbarInitialized)
@@ -47,9 +51,64 @@ internal static class PlayModeStartSceneToolbar
             {
                 SaveValues.PlayModeStartScene.ToggleState = newValue;
                 MainToolbar.Refresh(_TogglePath);
-            });
+            })
+        {
+            populateContextMenu = PopulateContextMenu,
+        };
 
         return element;
+    }
+    
+    private static void PopulateContextMenu(DropdownMenu menu)
+    {
+        menu.AppendAction("Change StartScene", _ =>
+        {
+            var path = EditorUtility.OpenFilePanelWithFilters(
+                "Select new StartScene",
+                string.IsNullOrEmpty(SaveValues.PlayModeStartScene.StartSceneGuid) ? Application.dataPath : AssetDatabase.GUIDToAssetPath(SaveValues.PlayModeStartScene.StartSceneGuid),
+                new[]
+                {
+                    "Unity Scene", "unity",
+                });
+            
+            if (string.IsNullOrEmpty(path))
+                return;
+            
+            var projectRoot = Application.dataPath.Replace("\\", "/");
+            projectRoot = projectRoot[..^"/Assets".Length];
+
+            path = path.Replace("\\", "/");
+
+            if (!path.StartsWith(projectRoot, StringComparison.OrdinalIgnoreCase))
+            {
+                EditorUtility.DisplayDialog(
+                    "Invalid selection",
+                    "Please select a scene that is inside this Unity project (under the Assets folder).",
+                    "OK"
+                );
+                
+                return;
+            }
+            
+            var relativePath = path[(projectRoot.Length + 1)..];
+            var sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(relativePath);
+            
+            if (sceneAsset == null)
+            {
+                EditorUtility.DisplayDialog("Not a Scene", "The selected file could not be loaded as a SceneAsset.", "OK");
+                return;
+            }
+            
+            SaveValues.PlayModeStartScene.StartSceneGuid = AssetDatabase.GUIDFromAssetPath(relativePath).ToString();
+
+            if (SaveValues.PlayModeStartScene.ToggleState)
+                EditorSceneManager.playModeStartScene = SaveValues.PlayModeStartScene.GetStartScene();
+        });
+        
+        menu.AppendAction("Reset", _ =>
+        {
+            SaveValues.PlayModeStartScene.StartSceneGuid = "";
+        });
     }
 }
 
