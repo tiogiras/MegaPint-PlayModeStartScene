@@ -12,12 +12,11 @@ internal static partial class SaveValues
     public static class PlayModeStartScene
     {
         public static Action <bool> onToggleChanged;
-        public static Action <bool> onDisplayToolbarToggleChanged;
         public static Action onStartSceneChanged;
 
         private static CacheValue <string> s_startSceneGuid = new() {defaultValue = ""};
         private static CacheValue <bool> s_toggleState = new() {defaultValue = false};
-        private static CacheValue <bool> s_displayToolbarToggle = new() {defaultValue = true};
+        private static CacheValue <bool> s_toolbarInitialized = new() {defaultValue = false};
 
         private static CacheValue <bool> s_applyPsToggleWindow = new() {defaultValue = true};
 
@@ -49,14 +48,10 @@ internal static partial class SaveValues
             set => ValueProperty.Set("ApplyPS_ToggleWindow", value, ref s_applyPsToggleWindow, _Settings);
         }
 
-        public static bool DisplayToolbarToggle
+        public static bool ToolbarInitialized
         {
-            get => ValueProperty.Get("DisplayToolbarToggle", ref s_displayToolbarToggle, _Settings);
-            set
-            {
-                ValueProperty.Set("DisplayToolbarToggle", value, ref s_displayToolbarToggle, _Settings);
-                onDisplayToolbarToggleChanged?.Invoke(value);
-            }
+            get => ValueProperty.Get("ToolbarInitialized", ref s_toolbarInitialized, _Settings);
+            set => ValueProperty.Set("ToolbarInitialized", value, ref s_toolbarInitialized, _Settings);
         }
 
         private static SettingsBase _Settings
