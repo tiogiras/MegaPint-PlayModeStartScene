@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MegaPint.Editor.Scripts.PackageManager.Packages;
 using MegaPint.Editor.Scripts.Tests.Utility;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
@@ -47,9 +48,9 @@ internal class PackageTests
             ref isValid,
             Constants.PlayModeStartScene.UserInterface.PlayModeToggle);
 
-        TestsUtility.ValidateResource <VisualTreeAsset>(
+        TestsUtility.ValidateResource <Texture2D>(
             ref isValid,
-            Constants.PlayModeStartScene.UserInterface.ToolbarButton);
+            Constants.PlayModeStartScene.Images.ToolbarButton);
 
         Assert.IsTrue(isValid);
     }
